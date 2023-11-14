@@ -2,6 +2,8 @@ import random
 import sqlite3
 from faker import Faker
 
+from hash import hash_passwd
+
 con = sqlite3.connect("../identifier.sqlite")
 global id_master
 
@@ -123,7 +125,7 @@ def create_invoices(i, invoice, data=None):
 def create_login_info(i, data=None):
     if data is None:
         data = [
-            i, Faker().email(), Faker().password()
+            i, Faker().email(), hash_passwd(Faker().password())
         ]
     print(data)
     con.execute(
